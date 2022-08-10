@@ -23,8 +23,11 @@ function requireModule (moduleName) {
   if (fs.existsSync(moduleName)) {
     const moduleFilePath = path.resolve(moduleName)
     const moduleFileExtension = path.extname(moduleName)
-    const modulePath = moduleFilePath.split(moduleFileExtension)[0]
-    return require(modulePath)
+    if(moduleFileExtension !== 'cjs'){
+      const modulePath = moduleFilePath.split(moduleFileExtension)[0]
+      return require(modulePath)
+    }
+    return require(moduleFilePath)
   } else {
     return require(moduleName)
   }
